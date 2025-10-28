@@ -1,6 +1,6 @@
 ### 🧠 **Код файлу `app.py`**
 
-```python
+python
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -64,4 +64,5 @@ if not df.empty:
 
 st.markdown("---")
 st.caption("© 2025 – Entwickelt von Vitalii Shevchuk 🇺🇦")
+
 
