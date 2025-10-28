@@ -12,7 +12,7 @@ st.markdown("Erstellt von **Vitalii Shevchuk** – Einfache Verwaltung und Analy
 def load_data():
     try:
         df = pd.read_csv("expenses.csv")
-        df["Datum"] = pd.to_datetime(df["Datum"])
+        df["Datum"] = pd.to_datetime(df["Datum"], errors="coerce")
         return df
     except Exception:
         return pd.DataFrame(columns=["Datum", "Kategorie", "Betrag", "Beschreibung"])
@@ -32,12 +32,14 @@ desc = st.text_input("📝 Beschreibung")
 if st.button("💾 Ausgabe hinzufügen"):
     new_row = {"Datum": date, "Kategorie": category, "Betrag": amount, "Beschreibung": desc}
     df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+    df["Datum"] = pd.to_datetime(df["Datum"], errors="coerce")
     df.to_csv("expenses.csv", index=False)
     st.success("✅ Ausgabe erfolgreich hinzugefügt!")
 
 if not df.empty:
     st.subheader("📊 Übersicht der Ausgaben")
 
+    df["Datum"] = pd.to_datetime(df["Datum"], errors="coerce")
     monthly_expenses = df.groupby(df["Datum"].dt.to_period("M"))["Betrag"].sum().reset_index()
     monthly_expenses["Datum"] = monthly_expenses["Datum"].astype(str)
     fig1 = px.line(monthly_expenses, x="Datum", y="Betrag", title="Monatliche Ausgaben (€)")
