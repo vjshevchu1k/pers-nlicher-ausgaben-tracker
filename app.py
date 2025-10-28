@@ -1,6 +1,3 @@
-
----
-
 ### 🧠 **Код файлу `app.py`**
 
 ```python
@@ -67,3 +64,4 @@ if not df.empty:
 
 st.markdown("---")
 st.caption("© 2025 – Entwickelt von Vitalii Shevchuk 🇺🇦")
+
